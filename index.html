@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<head>
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<style>
+
+html {
+  height: 100%;
+}
+body {
+  text-align: center;
+  font-family: 'Lato';
+  font-size: 30px;
+  background: #b993d6; 
+  background: -webkit-linear-gradient(#b993d6, #8ca6db);
+  background: -o-linear-gradient(#b993d6, #8ca6db);
+  background: -moz-linear-gradient(#b993d6, #8ca6db); 
+  background: linear-gradient(#b993d6, #8ca6db); 
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100%;
+  margin: 0;
+  color: white;
+}
+.prompt {
+  margin-top: 160px;
+}
+.nextbtn {
+  margin: 40px;
+  font-family: sans-serif;
+  padding: 10px 30px;
+  font-family: 'Lato', sans-serif;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 25px;
+  color: white;
+  cursor: pointer;
+  transition-duration: 0.5s;
+}
+
+.nextbtn:hover {
+background-color: white;
+  color: #b993d6;
+}
+
+input {
+  font-size: 24px;
+  margin-top: 20px;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  font-size: 25px;
+  font-weight: 300;
+}
+.fill {
+  background: white;
+  color: red;
+  border-bottom: 2px black solid;
+  font-family: 'Shadows Into Light';
+}
+
+.refresh {
+  display: none;
+  margin: 30px;
+}
+
+#agnbtn {
+  font-family: sans-serif;
+  padding: 10px 30px;
+  font-family: 'Lato', sans-serif;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 25px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition-duration: 0.5s;
+}
+
+#agnbtn:hover {
+  background-color: white;
+  color: #b993d6;
+}
+
+#popup {
+  width: 100%;
+  height: 100%;
+  background: rgba(1,0,0,0);
+}
+
+#content {
+  width: 400px;
+  height: 250px;
+  border: 1px solid white;
+  background-color: white;
+  border-radius: 25px;
+  position: fixed;
+  top: 100px;
+  left: 350px;
+  text-align: center;
+}
+
+#content h1 {
+  font-family: 'Lato',sans-serif;
+  color: #b993d6;
+  font-size: 30px;
+}
+
+#content p {
+  font-family: 'Lato',sans-serif;
+  color: #b993d6;
+  font-size: 20px;
+  font-weight: 300;
+}
+#content button {
+  font-family: sans-serif;
+  padding: 10px 30px;
+  font-family: 'Lato', sans-serif;
+  background-color: transparent;
+  border: 1px solid #b993d6;
+  border-radius: 25px;
+  color: #b993d6;
+  cursor: pointer;
+  font-size: 14px;
+  transition-duration: 0.5s;
+}
+
+#content button:hover {
+  background-color: #b993d6;
+  color: white;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="prompt"></div>
+<button class="nextbtn">NEXT</button>
+<form class="refresh">
+<INPUT id="agnbtn" TYPE="button" onClick="history.go(0)" VALUE="Again">
+</form>
+<div id="popup" onclick="closeSettings()">
+  <div id="content">
+    <h1> Make Your Own Story </h1>
+    <p> In this story generator, you'll provide the critical pieces of information for this entire story to be complete! </p>
+    <button>Start Playing</button>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+var popupDiv = document.getElementById('popup');
+
+function closeSettings() {
+  popupDiv.style.display = "none";
+}
+
+</script>
+<script>
+// List of prompts for the user
+var prompts = [
+	'Type your name',
+	'Type an adjective',
+	'Type a noun',
+  'Form of transportation',
+  'Type an animal',
+  'Type a bird',
+  'Type an object (pl)'
+   ];
+
+var answers=[];
+// Keep track of current prompt we're on
+var currentPrompt = 0;
+
+// A function that will call the next prompt
+var nextPrompt = function() {
+  //if there's no answer in the form
+  if (currentPrompt != 0){
+    answers.push($('input').val());
+  }
+	// if there is a next prompt
+	if (currentPrompt < prompts.length) {
+		// put first prompt in all html elements with class 
+		$('.prompt').html(prompts[currentPrompt] +'<br><input type="text">');
+		// move the next prompt into variable currentPrompt 
+		currentPrompt = currentPrompt + 1;
+	}
+	//or else if we're at the end of the array
+	else {
+		// put a new message into the html.
+		showFinal();
+	}
+}
+
+//puts user answers into HTML
+var showFinal = function() {
+  $('.prompt').html('One day, the group of <span class="fill">'+answers[0]+'</span> brought the <span class="fill">'+answers[1]+'</span> <span class="fill">'+answers[2]+'</span> back to the castle by riding their trusted <span class="fill>'+answers[3]+'</span> which was powered by the animal <span class="fill">'+answers[4]+'</span>. Out of nowhere, a magical <span class="fill">'+answers[5]+'</span> took their <span class="fill">'+answers[2]+'</span> and turned it into<span class="fill">'+answers[6]+'</span>! The magical <span class="fill">'+answers[5]+'</span>then said that the only way they can change it back is through...<strong>UX</strong> <br><br> Thank you for playing!');
+  $('.nextbtn').hide();
+  $('.refresh').show();
+}
+// run nextPrompt function when button is clicked
+$('.nextbtn').click(function() {
+	nextPrompt();
+});
+
+// Show the first prompt as soon as js loads
+nextPrompt();
+</script>
+
+</body>
