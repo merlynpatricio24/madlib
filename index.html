@@ -1,13 +1,13 @@
 <!DOCTYPE html>
+
 <head>
-<title> Madlib Project Merlyn Patricio </title>
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <style>
 
 html {
-  height: 100%;
+  height: 40%;
 }
 body {
   text-align: center;
@@ -91,14 +91,12 @@ input {
 }
 
 #content {
-  width: 400px;
-  height: 250px;
+  width: 100%;
+  height: 40%;
   border: 1px solid white;
   background-color: white;
-  border-radius: 25px;
   position: fixed;
   top: 100px;
-  left: 350px;
   text-align: center;
 }
 
@@ -113,6 +111,8 @@ input {
   color: #b993d6;
   font-size: 20px;
   font-weight: 300;
+  width: 100%;
+  text-align: center;
 }
 #content button {
   font-family: sans-serif;
@@ -145,7 +145,7 @@ input {
 <div id="popup" onclick="closeSettings()">
   <div id="content">
     <h1> Make Your Own Story </h1>
-    <p> In this story generator, you'll provide the critical pieces of information for this entire story to be complete! </p>
+    <p> In this story generator, you'll provide the critical pieces of information for this entire story to be complete! Be creative in<br> the words you choose to really see how fun this game can be. Don't be afraid to let your imagination go wild!</p>
     <button>Start Playing</button>
   </div>
 </div>
@@ -162,9 +162,9 @@ function closeSettings() {
 <script>
 // List of prompts for the user
 var prompts = [
-	'Type your name',
-	'Type an adjective',
-	'Type a noun',
+  'Type your name',
+  'Type an adjective',
+  'Type a noun',
   'Form of transportation',
   'Type an animal',
   'Type a bird',
@@ -181,29 +181,29 @@ var nextPrompt = function() {
   if (currentPrompt != 0){
     answers.push($('input').val());
   }
-	// if there is a next prompt
-	if (currentPrompt < prompts.length) {
-		// put first prompt in all html elements with class 
-		$('.prompt').html(prompts[currentPrompt] +'<br><input type="text">');
-		// move the next prompt into variable currentPrompt 
-		currentPrompt = currentPrompt + 1;
-	}
-	//or else if we're at the end of the array
-	else {
-		// put a new message into the html.
-		showFinal();
-	}
+  // if there is a next prompt
+  if (currentPrompt < prompts.length) {
+    // put first prompt in all html elements with class 
+    $('.prompt').html(prompts[currentPrompt] +'<br><input type="text">');
+    // move the next prompt into variable currentPrompt 
+    currentPrompt = currentPrompt + 1;
+  }
+  //or else if we're at the end of the array
+  else {
+    // put a new message into the html.
+    showFinal();
+  }
 }
 
 //puts user answers into HTML
 var showFinal = function() {
-  $('.prompt').html('One day, the group of <span class="fill">'+answers[0]+'</span> brought the <span class="fill">'+answers[1]+'</span> <span class="fill">'+answers[2]+'</span> back to the castle by riding their trusted <span class="fill">'+answers[3]+'</span> which was powered by the animal <span class="fill">'+answers[4]+'</span>. Out of nowhere, a magical <span class="fill">'+answers[5]+'</span> took their <span class="fill">'+answers[2]+'</span> and turned it into<span class="fill">'+answers[6]+'</span>! The magical <span class="fill">'+answers[5]+'</span>then said that the only way they can change it back is through...<strong>UX</strong> <br><br> Thank you for playing!');
+  $('.prompt').html('One day, the group of <span class="fill">'+answers[0]+'</span> brought the <span class="fill">'+answers[1]+'</span> <span class="fill">'+answers[2]+'</span> back to the castle by riding their trusted <span class="fill>'+answers[3]+'</span> which was powered by the animal <span class="fill">'+answers[4]+'</span>. Out of nowhere, a magical <span class="fill">'+answers[5]+'</span> took their <span class="fill">'+answers[2]+'</span> and turned it into<span class="fill">'+answers[6]+'</span>! The magical <span class="fill">'+answers[5]+'</span>then said that the only way they can change it back is through...<strong>UX</strong> <br><br> Thank you for playing!');
   $('.nextbtn').hide();
   $('.refresh').show();
 }
 // run nextPrompt function when button is clicked
 $('.nextbtn').click(function() {
-	nextPrompt();
+  nextPrompt();
 });
 
 // Show the first prompt as soon as js loads
